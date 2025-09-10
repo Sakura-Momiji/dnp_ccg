@@ -999,6 +999,33 @@ button.reset-btn:hover {
   text-align: center;
 }
 
+.settings-section-contents {
+    padding: 20px;
+    background-color: #e8f1f7;
+    /* 全体の背景 */
+    border: 2px solid #000000;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 600px;
+    align-items: center;
+}
+
+.settings-left-contents {
+    flex: 1;
+    background-color: #ffffff;
+    border: 2px solid #cce5ff;
+    border-radius: 12px;
+    padding: 15px;
+}
+
+.settings-right-contents {
+    flex: 1;
+    background-color: #ffffff;
+    border: 2px solid #f5c6cb;
+    border-radius: 12px;
+    padding: 10px;
+}
+
 .settings-container-contents{
   display: flex;
   flex-direction: column; /* 子要素を縦並びにする */
