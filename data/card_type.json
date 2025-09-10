@@ -1,0 +1,9 @@
+{
+  "types": [
+    { "id": "unit", "name": "ユニットカード", "color": "#FFD700" },
+    { "id": "item", "name": "アイテムカード", "color": "#00BFFF" },
+    { "id": "spell", "name": "呪文カード", "color": "#ADFF2F" },
+    { "id": "equip", "name": "装備カード", "color": "#FF69B4" },
+    { "id": "field", "name": "フィールドカード", "color": "#FF8C00" }
+  ]
+}

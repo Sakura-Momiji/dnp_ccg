@@ -1,0 +1,9 @@
+{
+  "rarity": [
+    { "name": "コモン", "id": "common" },
+    { "name": "アンコモン", "id": "uncommon" },
+    { "name": "レア", "id": "rare" },
+    { "name": "スーパーレア", "id": "super_rare" },
+    { "name": "ウルトラレア", "id": "ultra_rare" }
+  ]
+}

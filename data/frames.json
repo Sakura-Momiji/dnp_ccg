@@ -1,0 +1,10 @@
+[
+  { "name": "Costのみ", "file": "none.png" },
+  { "name": "シンプル黒", "file": "default.png" },
+  { "name": "シンプル白", "file": "simple_white.png" },
+  { "name": "ウィンドウ_青", "file": "menu_light_blue.png" },
+  { "name": "魔法_黒", "file": "sigil_black.png" },
+  { "name": "近未来_青", "file": "future_light_blue.png" },
+  { "name": "ポップ_緑", "file": "pop_green.png" },
+  { "name": "無し", "file": "empty.png" }
+]

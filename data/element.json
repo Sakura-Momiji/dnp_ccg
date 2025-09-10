@@ -1,0 +1,52 @@
+{
+  "single": [
+    {
+      "id": "fire",
+      "name": "火"
+    },
+    {
+      "id": "ice",
+      "name": "氷"
+    },
+    {
+      "id": "wind",
+      "name": "風"
+    },
+    {
+      "id": "earth",
+      "name": "地"
+    },
+    {
+      "id": "thunder",
+      "name": "雷"
+    },
+    {
+      "id": "water",
+      "name": "水"
+    },
+    {
+      "id": "light",
+      "name": "光"
+    },
+    {
+      "id": "dark",
+      "name": "闇"
+    },
+    {
+      "id": "gold",
+      "name": "金"
+    },
+    {
+      "id": "silver",
+      "name": "銀"
+    },
+    {
+      "id": "pink",
+      "name": "桃"
+    },
+    {
+      "id": "ne",
+      "name": "なし"
+    }
+  ]
+}

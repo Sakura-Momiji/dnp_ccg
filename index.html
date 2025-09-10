@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>電波人間のカードジェネレーター</title>
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Google FontsからOrbitronを読み込む -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- タイトルとモーダルボタン -->
+    <header>
+        <h1>電波人間のキャラクターカードジェネレーター</h1>
+        <div class="modal-buttons">
+            <button id="rulesBtn">利用規約</button>
+            <button id="howtoBtn">使い方</button>
+            <button id="templateBtn">テンプレート</button>
+            <button id="updatelogBtn">アップデート履歴</button>
+        </div>
+    </header>
+
+    <!-- メインエリア -->
+    <main class="main-container">
+        <!-- 左: カードプレビュー -->
+        <div class="card-preview">
+            <h2 class="preview-title">カードプレビュー</h2>
+            <div class="preview-area">
+                <canvas id="cardCanvas" width="1000" height="1400" style="border:1px solid #000;"></canvas>
+                <!-- ベース画像（イラスト） -->
+                <img id="basePreview">
+                <!-- 枠 -->
+                <img id="framePreview" src="assets/frame/default.png" alt="カード枠">
+                <!-- イラストオーバーレイ -->
+                <img id="overlayPreview">
+                <div class="text-preview">
+                    <h3 id="cardNamePreview">カード名</h3>
+                    <span id="cardCostPreview">0</span>
+                    <div id="racePreview">—</div>
+                </div>
+                <!-- カード属性 -->
+                <div id="elementPreview"></div>
+                <!-- カードtype -->
+                <div class="typePreview">
+                    <img id="typePreview">
+                </div>
+                <!-- カード右下ステータス -->
+                <div id="statusContainer">
+                    <div class="statusSet">
+                        <span class="statusIcon">ATK:</span>
+                        <span class="statusValue" id="atkPreview">1000</span>
+                    </div>
+                    <div class="statusSet">
+                        <span class="statusIcon">DEF:</span>
+                        <span class="statusValue" id="defPreview">1000</span>
+                    </div>
+                </div>
+                <!-- skill ability -->
+                <div class="abilitiesContainer">
+                    <div id="skillLine1"></div>
+                    <div id="skillLine2"></div>
+                </div>
+                <!-- カードタイプ-->
+                <div id="cardTypePreview" class="card-type-preview"></div>
+                <!-- カードレアリティ -->
+                <div class="rarityPreview">
+                    <img id="rarityPreview">
+                </div>
+                <!-- カード右下メモ -->
+                <div id="cardMemo"></div>
+            </div>
+        </div>
+
+        <!-- 右: 設定画面 -->
+        <section class="settings-section">
+            <div class="settings-container">
+                <!-- 左カラム -->
+                <div class="settings-left">
+                    <!-- 名前設定 -->
+                    <div class="form-group">
+                        <label for="titleInput">カード名:</label>
+                        <input type="text" id="titleInput" placeholder="カード名を入力">
+                    </div>
+                    <!-- コスト設定 -->
+                    <div class="form-group">
+                        <label for="costInput">コスト:</label>
+                        <input type="number" id="costInput" value="0">
+                    </div>
+                    <!-- 詳細設定 -->
+                    <div class="advanced-setting-item" style="display: none;">
+                        <div class="adv-setting">
+                            <label for="costFontSize">コストフォントサイズ:</label>
+                            <input type="number" id="costFontSize" value="24">
+                        </div>
+                        <div class="adv-setting">
+                            <label for="costPosX">X位置:</label>
+                            <input type="number" id="costPosX" value="0">
+                            <label for="costPosY">Y位置:</label>
+                            <input type="number" id="costPosY" value="0">
+                        </div>
+                        <div style="margin-top: 5px;">
+                            <button id="resetCost" class="reset-btn">配置をリセット</button>
+                        </div>
+                        <hr>
+                    </div>
+                    <!-- 種族設定 -->
+                    <div class="form-group">
+                        <label>種族1:</label>
+                        <select id="race1Select">
+                            <option value="">設定しない</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>種族2:</label>
+                        <select id="race2Select">
+                            <option value="">設定しない</option>
+                        </select>
+                    </div>
+                    <hr>
+                    <!-- カード枠 -->
+                    <div class="form-group">
+                        <label for="frameSelect">カード枠:</label>
+                        <select id="frameSelect"></select>
+                    </div>
+                    <!-- 画像アップロード -->
+                    <label>
+                        ベースイラストアップロード:
+                        <h5>1000×1400推奨</h5>
+                        <input type="file" id="baseUpload" accept="image/*">
+                    </label>
+                    <button id="resetBase" class="reset-btn">リセット</button>
+                    <br>
+                    <label>
+                        オーバーレイイラストアップロード:
+                        <input type="file" id="overlayUpload" accept="image/*">
+                    </label>
+                    <button id="resetOverlay" class="reset-btn">リセット</button>
+                    <hr>
+                    <!-- 属性設定 -->
+                    <div class="attribute-settings">
+                        <!-- 属性タイプ -->
+                        <div class="form-group">
+                            <label for="elementType">属性種:</label>
+                            <select id="elementType">
+                                <option value="single">単体</option>
+                                <option value="dual">複合</option>
+                            </select>
+                        </div>
+
+                        <!-- 単体属性 -->
+                        <div class="form-group" id="singleContainer">
+                            <label for="singleElement">属性:</label>
+                            <select id="singleElement"></select>
+                        </div>
+
+                        <!-- 複合属性 -->
+                        <div class="attribute-settings-multi" id="dualContainer" style="display:none;">
+                            <div class="attribute-settings-multi-pair">
+                                <label for="leftElement">属性1:</label>
+                                <select id="leftElement"></select>
+                            </div>
+                            <div class="attribute-settings-multi-pair">
+                                <label for="rightElement">属性2:</label>
+                                <select id="rightElement"></select>
+                            </div>
+                        </div>
+
+                        <!-- X/Y位置 -->
+                        <div class="advanced-setting-item" style="display: none;">
+                            <div class="adv-setting">
+                                <label for="elementPosX">X位置:</label>
+                                <input type="number" id="elementPosX" value="0">
+                                <label for="elementPosY">Y位置:</label>
+                                <input type="number" id="elementPosY" value="0">
+                            </div>
+                            <div style="margin-top: 5px;">
+                                <button id="resetElement" class="reset-btn">配置をリセット</button>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <!-- タイプ設定 -->
+                    <div class="attribute-settings">
+                        <!-- 1行目：タイプ -->
+                        <div class="form-group">
+                            <label for="typeSelect">タイプ:</label>
+                            <select id="typeSelect"></select>
+                        </div>
+
+                        <!-- 2行目：X/Y位置 -->
+                        <div class="advanced-setting-item" style="display: none;">
+                            <div class="adv-setting">
+                                <label for="typePosX">X位置:</label>
+                                <input type="number" id="typePosX" value="0">
+                                <label for="typePosY">Y位置:</label>
+                                <input type="number" id="typePosY" value="0">
+                            </div>
+                            <button id="resetTypePos" class="reset-btn">配置をリセット</button>
+                        </div>
+                    </div>
+                    <hr>
+                    <!-- 詳細設定ON/OFFボタン -->
+                    <div class="attribute-settings">
+                        <div class="form-group">
+                            <label for="advancedSelect">詳細設定:</label>
+                            <select id="advancedSelect">
+                                <option value="off">OFF</option>
+                                <option value="on">ON</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 右カラム -->
+                <div class="settings-right">
+                    <!-- スキル・アビリティ設定 -->
+                    <h3>スキル・アビリティ設定</h3>
+                    <div class="skill-group">
+                        <h3>1段目</h3>
+
+                        <div class="form-row">
+                            <label for="skillType1">種類:</label>
+                            <select id="skillType1" class="skillTypeSelect">
+                                <option value="skill">スキル</option>
+                                <option value="ability">アビリティ</option>
+                            </select>
+                        </div>
+
+                        <div class="form-row">
+                            <label for="skillName1">名前:</label>
+                            <input type="text" id="skillName1" class="skillNameInput" placeholder="スキル名/アビリティ名">
+                        </div>
+
+                        <div class="form-row">
+                            <label for="skillDesc1">説明:</label>
+                            <textarea id="skillDesc1" class="skillDescInput" placeholder="説明文"></textarea>
+                        </div>
+                    </div>
+                    <div class="skill-group">
+                        <h3>2段目</h3>
+
+                        <div class="form-row">
+                            <label for="skillType2">種類:</label>
+                            <select id="skillType2" class="skillTypeSelect">
+                                <option value="skill">スキル</option>
+                                <option value="ability">アビリティ</option>
+                            </select>
+                        </div>
+
+                        <div class="form-row">
+                            <label for="skillName2">名前:</label>
+                            <input type="text" id="skillName2" class="skillNameInput" placeholder="スキル名/アビリティ名">
+                        </div>
+
+                        <div class="form-row">
+                            <label for="skillDesc2">説明:</label>
+                            <textarea id="skillDesc2" class="skillDescInput" placeholder="説明文"></textarea>
+                        </div>
+                    </div>
+                    <!-- 背景透明度設定 -->
+                    <div class="bgOpacitySetting">
+                        <div>
+                            背景透明度：<span id="bgOpacityValue">60%</span>
+                        </div>
+                        <input type="range" id="bgOpacity" min="0" max="100" value="60">
+                    </div>
+                </div>
+            </div>
+
+            <!-- 下部（全体共通） -->
+            <div class="settings-bottom">
+                <!-- ステータス -->
+                <div class="form-group-2">
+                    <div class="pair">
+                        <label for="atkInput">攻撃力数値:</label>
+                        <input type="number" id="atkInput" placeholder="0">
+                    </div>
+                    <div class="pair">
+                        <label for="defInput">防御力数値:</label>
+                        <input type="number" id="defInput" placeholder="0">
+                    </div>
+                </div>
+                <!-- カード種類 --><!-- レアリティ -->
+                <div class="form-group-2">
+                    <div class="pair">
+                        <label for="cardTypeSelect">カード種類:</label>
+                        <select id="cardTypeSelect">
+                            <option value="">設定しない</option>
+                        </select>
+                    </div>
+                    <div class="pair">
+                        <label>レアリティ:</label>
+                        <select id="raritySelect"></select>
+                    </div>
+                </div>
+                <!-- メモ -->
+                <div class="form-group">
+                    <label for="noteInput">カードメモ:</label>
+                    <input type="text" id="noteInput" placeholder="イラスト作者名など">
+                </div>
+                <!-- ボタン -->
+                <div class="form-group-save">
+                    <button id="copyBtn">カード画像をコピー</button>
+                    <button id="downloadBtn">保存</button>
+                </div>
+                <h3>#電波人間のCCG　でシェアしよう！</h3>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- モーダル共通 -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="modal-inner">
+                <div class="modal-left" id="modalLeft"></div>
+                <div class="modal-right" id="modalRight">
+                    <div class="modal-right-title" id="modalRightTitle"></div> <!-- 追加 -->
+                    <div class="modal-right-content" id="modalRightContent"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="js/main.js"></script>
+</body>
+
+</html>

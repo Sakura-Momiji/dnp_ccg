@@ -1,0 +1,8 @@
+{
+  "types": [
+    { "name": "タイプなし", "id": "no_type" },
+    { "name": "グー", "id": "rock" },
+    { "name": "チョキ", "id": "scissors" },
+    { "name": "パー", "id": "paper" }
+  ]
+}

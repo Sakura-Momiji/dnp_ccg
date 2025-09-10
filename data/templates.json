@@ -1,0 +1,9 @@
+{
+  "default": {
+    "cardName": { "font": "sans-serif", "size": 36, "color": "#000000", "outline": true },
+    "race": { "font": "serif", "size": 18, "color": "#333333", "outline": false },
+    "cost": { "font": "monospace", "size": 24, "color": "#ff0000", "outline": true },
+    "effectName": { "font": "sans-serif", "size": 20, "color": "#0066ff", "outline": false },
+    "effectText": { "font": "serif", "size": 16, "color": "#000000", "outline": false }
+  }
+}
