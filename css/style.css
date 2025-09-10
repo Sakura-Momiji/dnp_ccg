@@ -984,3 +984,23 @@ button.reset-btn:hover {
     padding-left: 10px;
     /* 元のスタイルをここに */
 }
+
+
+
+
+/* 目次のスタイル */
+.center-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  position: relative;
+  top: 50px;
+  text-align: center;
+}
+
+.settings-container-contents{
+  display: flex;
+  flex-direction: column; /* 子要素を縦並びにする */
+  gap: 20px;              /* 上下の間隔を指定（自由に調整可能） */
+}
