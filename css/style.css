@@ -80,6 +80,12 @@ header h1 {
     height: auto;
 }
 
+    .card-preview-sd {
+        position: absolute;
+left: -490px;
+    /* スマホ専用設定 */
+}
+
 .preview-area {
     position: relative;
     width: 1000px;
@@ -459,6 +465,17 @@ header h1 {
 
 /* 右: 設定画面 */
 .settings-section {
+    padding: 20px;
+    background-color: #e8f1f7;
+    /* 全体の背景 */
+    border: 2px solid #000000;
+    border-radius: 12px;
+}
+
+/* 右: 設定画面　スマホ用 */
+.settings-section-sd {
+    position: absolute;
+    top: 900px;
     padding: 20px;
     background-color: #e8f1f7;
     /* 全体の背景 */
